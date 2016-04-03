@@ -4,7 +4,7 @@ node_modules
 
 # compiled files
 static/**/*.js.map
-static/**/.js
+static/**/*.js
 
 # typings
 static/typings
