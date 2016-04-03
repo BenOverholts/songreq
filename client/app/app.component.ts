@@ -7,7 +7,7 @@ import { WelcomeComponent } from './welcome.component';
 import { SpotifyService } from './spotify.service';
 
 @Component({
-    selector: 'partify',
+    selector: 'songreq',
     templateUrl: 'app/templates/app.component.html',
     styleUrls: [ 'app/styles/app.component.css' ],
     directives: [ROUTER_DIRECTIVES],
@@ -36,5 +36,5 @@ import { SpotifyService } from './spotify.service';
     useAsDefault: true
 }])
 export class AppComponent {
-    title = 'Partify';
+    title = 'Songreq';
 }
