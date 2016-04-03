@@ -1,0 +1,28 @@
+<div class="text-center">
+    <h3>Manage Song Requests</h3>
+</div>
+<button class="btn btn-default refresh" (click)="refreshRequests()">Refresh</button>
+<div *ngFor="#song of requests" class="row">
+    <div class="song">
+        <div class="col-xs-8">
+            <strong>{{song.name}}</strong> {{song.artist}}
+        </div>
+        <div class="col-xs-2">
+            <div class="btn btn-danger" style="display: inline;" (click)="dismissSong(song)">NO</div>
+        </div>
+        <div class="col-xs-2">
+            <div class="btn btn-success" style="display: inline;" (click)="approveSong(song)">YES</div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="text-center pad-top">
+        <h3>Share With Attendees</h3>
+    </div>
+    <div class="input-group">
+        <input id="link" type="text" class="form-control" value="{{shareUrl}}">
+        <span class="input-group-btn">
+            <button id="copy-button" class="btn btn-secondary" data-clipboard-target="#link" type="button">Copy!</button>
+        </span>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+.pad-top {
+  margin-top: 30px;
+}
+
+.refresh {
+  width: 100%;
+}
+
+.song {
+    background-color: rgba(200, 200, 200, 0.8);
+    font-size: 1.2em;
+    border-radius: 4px;
+    margin-top: 20px;
+    margin-left: 0px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
