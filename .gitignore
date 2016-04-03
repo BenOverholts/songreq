@@ -1,13 +1,13 @@
 # node modules
-static/node_modules
+client/node_modules
 node_modules
 
 # compiled files
-static/**/*.js.map
-static/**/*.js
+client/**/*.js.map
+client/**/*.js
 
 # typings
-static/typings
+client/typings
 
 # OSX
 *.DS_Store

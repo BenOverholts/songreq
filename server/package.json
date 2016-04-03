@@ -1,7 +1,7 @@
 {
   "author": "Ben Overholts",
   "name": "songreq",
-  "description": "",
+  "description": "Simple live playlist collaboration",
   "version": "0.0.1",
   "main": "server.js",
   "dependencies": {
