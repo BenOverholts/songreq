@@ -48,9 +48,6 @@ var stateKey = 'spotify_auth_state';
 
 var app = express();
 
-app.use(express.static(__dirname + '/static'))
-   .use(cookieParser());
-
 // Add headers
 app.use(function (req, res, next) {
 
@@ -294,9 +291,5 @@ app.get('/api/refresh_token', function(req, res) {
   });
 });
 
-app.use('/*', function(req, res) {
-	res.sendFile(__dirname + '/static/index.html');
-});
-
-console.log('Listening on 80');
-app.listen(80);
+console.log('Listening on 8080');
+app.listen(8080);
