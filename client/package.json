@@ -1,6 +1,8 @@
 {
-  "name": "Partify",
-  "version": "1.0.0",
+  "name": "songreq-cleint",
+  "author": "Ben Overholts",
+  "description": "Simple live playlist collaboration",
+  "version": "0.0.1",
   "scripts": {
     "start": "concurrently \"npm run tsc:w\" \"npm run lite\" ",
     "tsc": "tsc",
