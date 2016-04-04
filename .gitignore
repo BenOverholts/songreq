@@ -5,6 +5,7 @@ node_modules
 # compiled files
 client/**/*.js.map
 client/**/*.js
+client/out
 
 # typings
 client/typings

@@ -1,12 +1,12 @@
 <html>
   <head>
     <base href="/">
-    <title>Partify</title>
+    <title>Songreq</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">    
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <link rel="stylesheet" href="styles.css">
 
-    <!-- 1. Load libraries -->
+    <!-- Load libraries -->
     <!-- IE required polyfills, in this exact order -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.33.3/es6-shim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/0.19.22/system-polyfills.js"></script>
@@ -19,17 +19,20 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/2.0.0-beta.7/router.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/2.0.0-beta.7/http.js"></script>
 
-    <!-- 2. Configure SystemJS -->
+    <!-- Load bundled application -->
+    <script src="/out/songreq.js"></script>
+
+    <!-- Configure SystemJS -->
     <script>
       System.config({
         packages: {        
-          app: {
+          client: {
             format: 'register',
             defaultExtension: 'js'
           }
-        }
+        },
       });
-      System.import('app/main')
+      System.import('main')
             .then(null, console.error.bind(console));
     </script>
   </head>
