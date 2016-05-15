@@ -5,13 +5,14 @@ import { PartyComponent } from './party.component';
 import { LoginComponent } from './login.component';
 import { WelcomeComponent } from './welcome.component';
 import { SpotifyService } from './spotify.service';
+import { PartyService } from './party.service';
 
 @Component({
     selector: 'songreq',
     templateUrl: 'app/templates/app.component.html',
     styleUrls: [ 'app/styles/app.component.css' ],
     directives: [ROUTER_DIRECTIVES],
-    providers: [ROUTER_PROVIDERS, SpotifyService]
+    providers: [ROUTER_PROVIDERS, SpotifyService, PartyService]
 })
 @RouteConfig([
 {

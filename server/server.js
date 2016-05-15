@@ -12,12 +12,15 @@ var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
 var SpotifyWebApi = require('spotify-web-api-node');
 
-// TODO Replace with env vars and regen
-var devo = (process.env.SRQ_ENV === 'devo');
-var client_id = process.env.SRQ_CLIENT_ID; // Your client id
-var client_secret = process.env.SRQ_CLIENT_SECRET; // Your client secret
+var client_id = process.env.SRQ_CLIENT_ID;
+var client_secret = process.env.SRQ_CLIENT_SECRET;
 var scopes = ['playlist-modify-public', 'playlist-modify-private']
-var redirect_uri = 'http://localhost:8080/callback'; // Your redirect uri
+var server_base_uri = 'http://localhost:8080/';
+var app_base_uri = 'http://localhost:3000/';
+//var server_base_uri = 'http://songreq.me/';
+//var app_base_uri = server_base_uri;
+var redirect_uri = app_base_uri + 'login';
+var callback_uri = server_base_uri + 'api/callback';
 var api_root = 'https://api.spotify.com/v1/';
 
 mongoose.connect('mongodb://localhost/songreq');
@@ -79,7 +82,7 @@ var getSpotifyApi = function() {
   return new SpotifyWebApi({
     clientId : client_id,
     clientSecret : client_secret,
-    redirectUri : redirect_uri
+    redirectUri : callback_uri
   });
 };
 
@@ -106,6 +109,7 @@ var stateKey = 'spotify_auth_state';
  *
  ********************************************/
 var app = express();
+app.use(cookieParser());
 
 // Add headers
 app.use(function (req, res, next) {
@@ -132,8 +136,10 @@ app.get('/api/create', function(req, res) {
     console.log("[/create] Begin handling");
 
     var spotifyApi = getSpotifyApi();
-    var access_token = req.param('access_token');
-    var uid = req.param('uid');
+    var access_token = req.cookies.access_token;
+    var uid = req.cookies.uid;
+    console.log(req.cookies);
+    console.log('Using uid: ' + uid);
     var datetime = new Date();
 
     spotifyApi.setAccessToken(access_token);
@@ -156,6 +162,8 @@ app.get('/api/create', function(req, res) {
                 console.log('[/create] Error saving party' + party.uid);
                 res.status(500).send('Error creating party');
               }
+
+              res.cookies['session'] = true;
 
               console.log('[/create] Instantiated party ' + party.uid);
               console.log('[/create] Complete')
@@ -302,7 +310,7 @@ app.get('/api/login', function(req, res) {
 });
 
 // Retrieve access token with auth code granted by user
-app.get('/callback', function(req, res) {
+app.get('/api/callback', function(req, res) {
   console.log('[/callback] Begin handling');
 
   var spotifyApi = getSpotifyApi();
@@ -319,6 +327,12 @@ app.get('/callback', function(req, res) {
         spotifyApi.setAccessToken(data.body['access_token']);
         spotifyApi.setRefreshToken(data.body['refresh_token']);
 
+        res.cookie('expiry_time', (Date.now() / 1000 | 0) 
+          + parseInt(data.body['expires_in']));
+        console.log("expiry time: ", data.body['expires_in']);
+        console.log("server time: ", (Date.now() / 1000 | 0));
+        res.cookie('server_time', (Date.now() / 1000 | 0));
+
         // Fetch the user's spotify UID
         spotifyApi.getMe()
           .then(function(data) {
@@ -331,9 +345,7 @@ app.get('/callback', function(req, res) {
             res.cookie('uid', data.body.id);
 
             console.log('[/callback] Complete');
-            console.log('Devo: ' + devo);
-            console.log(((devo)?'http://localhost:3000':'') + '/login');
-            res.redirect(((devo)?'http://localhost:3000':'') + '/login');
+            res.redirect(redirect_uri);
           }, function(err) {
             console.log('[/callback] Error retrieving UID', err);
             res.status(500).send('Error retrieving UID');

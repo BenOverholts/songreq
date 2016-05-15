@@ -2,6 +2,7 @@ import { Component } from 'angular2/core';
 import { HTTP_PROVIDERS } from 'angular2/http';
 import { Router, RouteParams } from 'angular2/router';
 import { SpotifyService } from './spotify.service';
+import { PartyService } from './party.service';
 import { Song } from './song';
 import { SONGS } from './mock-songs';
 
@@ -19,13 +20,9 @@ export class PartyComponent {
 
     constructor(
         private _routeParams: RouteParams,
+        private _partyService: PartyService,
         private _spotifyService: SpotifyService) {
 
-        this._spotifyService.setCredentials(
-            "",
-            "",
-            this._routeParams.get('uid')
-        );
         this.confMessage = ""
     }
 
@@ -38,7 +35,7 @@ export class PartyComponent {
     }
 
     addSuggestion(song: Song){
-        this._spotifyService.requestSong(song);
+        this._partyService.requestSong(song);
         console.log("Adding Suggestion: " + song.name);
         this.results = [];
         this.confMessage = "Request Submitted";

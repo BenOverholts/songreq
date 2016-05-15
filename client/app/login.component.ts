@@ -1,6 +1,6 @@
 import { Component, OnInit } from 'angular2/core';
 import { Router, RouteParams } from 'angular2/router';
-import { SpotifyService } from './spotify.service';
+import { PartyService } from './party.service';
 
 @Component({
     selector: 'login',
@@ -10,20 +10,14 @@ import { SpotifyService } from './spotify.service';
 export class LoginComponent implements OnInit {
 
     constructor(
-        private _routeParams: RouteParams,
         private _router: Router,
-        private _spotifyService: SpotifyService) { 
+        private _partyService: PartyService) { 
     }
 
     ngOnInit() {
-        console.log(this._routeParams);
-        this._spotifyService.setCredentials(
-            this._routeParams.get('access_token'),
-            this._routeParams.get('refresh_token'),
-            this._routeParams.get('uid')
-        );
-        if (this._routeParams.get('session') == "false") {
-            this._spotifyService.create();
+        this._partyService.calcTimeOffset();
+        if (!this._partyService.checkSession()) {
+            this._partyService.create();
         }
         this._router.navigate(['Dashboard']);
     }

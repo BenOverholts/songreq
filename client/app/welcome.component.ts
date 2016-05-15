@@ -1,5 +1,6 @@
 import { Component } from 'angular2/core';
 import { Router } from 'angular2/router';
+import { PartyService } from './party.service';
 
 @Component({
 	selector: 'welcome',
@@ -9,11 +10,17 @@ import { Router } from 'angular2/router';
 export class WelcomeComponent {
 
 	constructor(
-		private _router: Router) {
+		private _router: Router,
+		private _partyService: PartyService) {
 	}
 
 	gotoLogin() {
-        window.location.href = '/api/login';
+        if (this._partyService.checkSession()) {
+            console.log('session exists, redirecting to dashboard');
+            this._router.navigate(['Dashboard']);
+        } else {
+            this._partyService.login();
+        }
 	}	
 
 	gotoParty(){
