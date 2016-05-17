@@ -17,7 +17,8 @@ export class LoginComponent implements OnInit {
     ngOnInit() {
         this._partyService.calcTimeOffset();
         if (!this._partyService.checkSession()) {
-            this._partyService.create();
+            this._partyService.create().subscribe(
+                res => this._router.navigate(['Dashboard']));
         }
         this._router.navigate(['Dashboard']);
     }

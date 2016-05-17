@@ -17,20 +17,26 @@ export class DashboardComponent implements OnInit {
 
     refreshRequests() {
         this._partyService.getRequests().subscribe(reqs => this.requests = reqs);
-        console.log(this.requests);
     }
 
     approveSong(song: Song) {
-        this._partyService.approve(song);
-        this.refreshRequests();
+        this._partyService.approve(song).subscribe(res => this.refreshRequests());
     }
 
     dismissSong(song: Song) {
-        this._partyService.dismiss(song);
-        this.refreshRequests();
+        this._partyService.dismiss(song).subscribe(res => this.refreshRequests());
     }
 
     ngOnInit() {
+        // Check party status
+        this._partyService.getStatus().subscribe(res => {
+            if (!res.party) {
+                this._partyService.create().subscribe();
+                // TODO .subscribe( {showSpinner = true} );
+            }
+            // TODO Pop some toast like "Loaded existing party"
+        });
+
         this.shareUrl = window.location.host + "/party/" + this._partyService.getUid();
     }
 }

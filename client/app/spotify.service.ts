@@ -1,12 +1,22 @@
-import { Injectable } from 'angular2/core';
-import { Http, Response } from 'angular2/http';
+import { Injectable, Inject, provide } from 'angular2/core';
+import { Http, Response, BrowserXhr } from 'angular2/http';
 import { Song } from './song';
 import 'rxjs/add/operator/map';
 
 @Injectable()
 export class SpotifyService {
+    _http: Http;
 
-    constructor (private http: Http) { }
+    constructor(@Inject(Http) private http: Http) {
+        // TODO: Use official Angular2 CORS support when merged 
+        // (https://github.com/angular/angular/issues/4231).
+        let _build = (<any>http)._backend._browserXHR.build;
+        (<any>http)._backend._browserXHR.build = () => {
+            let _xhr = _build();
+            _xhr.withCredentials = false;
+            return _xhr;
+        };
+    }
 
     private _spotifyUrl = 'https://api.spotify.com/v1/';
 

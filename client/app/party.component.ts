@@ -35,10 +35,11 @@ export class PartyComponent {
     }
 
     addSuggestion(song: Song){
-        this._partyService.requestSong(song);
-        console.log("Adding Suggestion: " + song.name);
-        this.results = [];
-        this.confMessage = "Request Submitted";
+        this._partyService.requestSong(song).subscribe(res => {
+            console.log("Adding Suggestion: " + song.name);
+            this.results = [];
+            this.confMessage = "Request Submitted";
+        });
     }
 
     resToSongs(response) {

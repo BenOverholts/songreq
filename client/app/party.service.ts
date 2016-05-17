@@ -25,12 +25,15 @@ export class PartyService {
         window.location.href = 'http://localhost:8080/api/login';
     }
 
+    getStatus() {
+        return this.http.get(this._apiUrl + 'status')
+            .map(response => response.json());
+    }
+
     // create new party and playlist
     create() {
-        this.http.get(this._apiUrl + "create?" +
-            "uid=" + this.uid)
-            .map(response => response.json()).subscribe(
-            res => console.log(res));
+        return this.http.get(this._apiUrl + "create?" +
+            "uid=" + this.uid);
     }
 
     getRequests() {
@@ -39,27 +42,19 @@ export class PartyService {
     }
 
     requestSong(song: Song) {
-        this.http.get(this._apiUrl + "request?uid=" + this.uid +
+        return this.http.get(this._apiUrl + "request?uid=" + this.uid +
             "&uri=" + song.uri +
             "&song_name=" + song.name +
-            "&artist=" + song.artist)
-            .map(response => response.json()).subscribe(
-            res => console.log(res));
+            "&artist=" + song.artist);
 
     }
 
     approve(song: Song) {
-        this.http.get(this._apiUrl + "approve?uri=" + song.uri +
-            "&uid=" + this.uid)
-            .map(response => response.json()).subscribe(
-            res => console.log(res));
+        return this.http.get(this._apiUrl + "approve?uri=" + song.uri);
     }
 
     dismiss(song: Song) {
-        this.http.get(this._apiUrl + "dismiss?uri=" + song.uri +
-            "&uid=" + this.uid)
-            .map(response => response.json()).subscribe(
-            res => console.log(res));
+        return this.http.get(this._apiUrl + "dismiss?uri=" + song.uri);
     }
 
     getUid() {
