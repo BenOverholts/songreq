@@ -16,7 +16,7 @@ var client_id = process.env.SRQ_CLIENT_ID;
 var client_secret = process.env.SRQ_CLIENT_SECRET;
 var scopes = ['playlist-modify-public', 'playlist-modify-private']
 var server_base_uri = 'http://localhost:8080/';
-var app_base_uri = 'http://localhost:3000/';
+var app_base_uri = 'http://localhost:3001/';
 //var server_base_uri = 'http://songreq.me/';
 //var app_base_uri = server_base_uri;
 var redirect_uri = app_base_uri + 'login';
@@ -115,7 +115,7 @@ app.use(cookieParser());
 app.use(function (req, res, next) {
 
     // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
 
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');

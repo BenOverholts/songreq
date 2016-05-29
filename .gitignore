@@ -1,10 +1,14 @@
-# node modules
-node_modules
+# libraries
+*/node_modules
+*/bower_components
 
 # compiled files
-client/**/*.js.map
-client/**/*.js
-client/out
+*.css
+client/build
+client/tmp
+
+# Test Output
+client/report
 
 # typings
 client/typings
