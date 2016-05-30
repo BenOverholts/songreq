@@ -31,7 +31,7 @@ npm install -g gulp
 
 * `gulp` or `gulp serve-dev`: run development build and serve in watch mode
 * `gulp build`: run production build with bundling, min/uglify, etc.
-* `gulp serve-build`: run production build and serve in watch mode
+* `gulp serve-build`: run production build and serve
 
 Use the `-p` flag to build with production API endpoint injected, otherwise the default is `localhost:8080`.
 
