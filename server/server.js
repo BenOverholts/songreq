@@ -11,20 +11,38 @@ var mongoose = require('mongoose');
 var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
 var SpotifyWebApi = require('spotify-web-api-node');
+var argv = require('yargs')
+  .usage('Usage: $0 <environment>')
+  .command('prod', 'Run in production mode')
+  .command('dev', 'Run in development mode')
+  .command('dev-build', 'Run in development mode (against a bundled build)')
+  .demand(1)
+  .check(function (argv) {
+    return (argv._[0] === 'prod' || argv._[0] === 'dev'
+      || argv._[0] === 'dev-build');
+  })
+  .argv;
 
+console.log("Running in mode: " + argv._[0]);
+
+/* Initialize dynamic constants */
 var client_id = process.env.SRQ_CLIENT_ID;
 var client_secret = process.env.SRQ_CLIENT_SECRET;
-var scopes = ['playlist-modify-public', 'playlist-modify-private']
 var server_base_uri = 'http://localhost:8080/';
-var app_base_uri = 'http://localhost:3001/';
-//var server_base_uri = 'http://songreq.me/';
-//var app_base_uri = server_base_uri;
+var app_base_uri = 'http://localhost:3000/';
+switch (argv._[0]) {
+  case 'prod':
+    server_base_uri = 'http://songreq.me/';
+    app_base_uri = 'http://songreq.me/';
+    break;
+  case 'dev-build':
+    app_base_uri = 'http://localhost:3001/';
+    break;
+}
+
 var redirect_uri = app_base_uri + 'login';
 var callback_uri = server_base_uri + 'api/callback';
-var api_root = 'https://api.spotify.com/v1/';
-
-mongoose.connect('mongodb://localhost/songreq');
-
+var scopes = ['playlist-modify-public', 'playlist-modify-private'];
 
 
 /********************************************
@@ -32,6 +50,8 @@ mongoose.connect('mongodb://localhost/songreq');
  * DB Schema Setup
  *
  ********************************************/
+mongoose.connect('mongodb://localhost/songreq');
+
 var partySchema = new mongoose.Schema({
   uid: String,
   plid: String,
@@ -67,7 +87,6 @@ partySchema.methods.removeSong = function(uri, callback) {
 
 // Finalize schema model
 var Party = mongoose.model('Party', partySchema);
-
 
 
 /********************************************
@@ -113,21 +132,12 @@ app.use(cookieParser());
 
 // Add headers
 app.use(function (req, res, next) {
-
-    // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
-
-    // Request methods you wish to allow
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-
-    // Request headers you wish to allow
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-
-    // Set to true if you need the website to include cookies in the requests sent
-    // to the API (e.g. in case you use sessions)
+    res.setHeader('Access-Control-Allow-Origin', app_base_uri.slice(0, -1));
+    res.setHeader('Access-Control-Allow-Methods',
+      'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Headers',
+      'X-Requested-With,content-type');
     res.setHeader('Access-Control-Allow-Credentials', true);
-
-    // Pass to next layer of middleware
     next();
 });
 
@@ -243,6 +253,7 @@ app.get('/api/requests', function(req, res) {
       }
 
       // Respond with the song requests
+      console.log( party.songs );
       console.log('[/requests] Complete');
       res.send( party.songs );
     });
@@ -299,7 +310,7 @@ app.get('/api/approve', function(req, res) {
     // Add to playlist
     spotifyApi.addTracksToPlaylist(uid, party.plid, [uri])
       .then(function(data) {
-        console.log('[/approve] Succesfully added song' + uri + 
+        console.log('[/approve] Succesfully added song ' + uri +
           ' to playlist ' + party.plid);
         party.removeSong(uri, function(err, party) {
           if (err) {
@@ -383,7 +394,7 @@ app.get('/api/callback', function(req, res) {
         spotifyApi.setAccessToken(data.body['access_token']);
         spotifyApi.setRefreshToken(data.body['refresh_token']);
 
-        res.cookie('expiry_time', (Date.now() / 1000 | 0) 
+        res.cookie('expiry_time', (Date.now() / 1000 | 0)
           + parseInt(data.body['expires_in']));
         console.log('expiry time: ', data.body['expires_in']);
         console.log('server time: ', (Date.now() / 1000 | 0));
@@ -392,7 +403,8 @@ app.get('/api/callback', function(req, res) {
         // Fetch the user's spotify UID
         spotifyApi.getMe()
           .then(function(data) {
-            console.log('[/callback] Successfully retrieved UID ' + data.body.id);
+            console.log('[/callback] Successfully retrieved UID '
+              + data.body.id);
 
             // Set cookies and redirect them back to the client
             // TODO {secure: true} once HTTPS
@@ -419,7 +431,8 @@ app.get('/api/refresh_token', function(req, res) {
   var refresh_token = req.query.refresh_token;
   var authOptions = {
     url: 'https://accounts.spotify.com/api/token',
-    headers: { 'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64')) },
+    headers: { 'Authorization': 'Basic '
+      + (new Buffer(client_id + ':' + client_secret).toString('base64')) },
     form: {
       grant_type: 'refresh_token',
       refresh_token: refresh_token

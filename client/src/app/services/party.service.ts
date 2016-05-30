@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Inject } from '@angular/core';
 import { Http, Response, BrowserXhr } from '@angular/http';
 import { Song } from '../song';
+import { ENVIRONMENT } from '../env';
 import { CookieService } from 'angular2-cookie/core';
 import 'rxjs/add/operator/map';
 
@@ -10,12 +11,12 @@ export class PartyService {
     uid: string;
     offset: number; // client/server time offset
 
-    private _apiUrl = 'http://localhost:8080/api/';
+    private _apiUrl = ENVIRONMENT.apiUrl;
 
     constructor(
         private _cookieService: CookieService,
         @Inject(Http) private http: Http) {
-        // TODO: Use official Angular2 CORS support when merged 
+        // TODO: Use official Angular2 CORS support when merged
         // (https://github.com/angular/angular/issues/4231).
         let _build = (<any>http)._backend._browserXHR.build;
         (<any>http)._backend._browserXHR.build = () => {
@@ -30,7 +31,7 @@ export class PartyService {
     }
 
     login() {
-        window.location.href = 'http://localhost:8080/api/login';
+        window.location.href = this._apiUrl + 'login';
     }
 
     getStatus() {

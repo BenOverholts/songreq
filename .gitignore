@@ -5,7 +5,7 @@
 # compiled files
 *.css
 client/build
-client/tmp
+client/src/tmp
 
 # Test Output
 client/report

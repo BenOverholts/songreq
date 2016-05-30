@@ -1,12 +1,12 @@
 {
-  "name": "angular2-starter",
-  "version": "1.0.0-rc.2",
-  "author": "Antony Budianto",
-  "description": "Angular 2 Starter with extensible features",
+  "name": "Songreq",
+  "version": "0.0.1",
+  "author": "Ben Overholts",
+  "description": "Simple live playlist collaboration",
   "main": "src/tmp/app/main.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/antonybudianto/angular2-starter.git"
+    "url": "https://github.com/benoverholts/songreq.git"
   },
   "scripts": {
     "postinstall": "typings install",
@@ -30,7 +30,7 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/antonybudianto/angular2-starter/issues"
+    "url": "https://github.com/benoverholts/songreq/issues"
   },
   "dependencies": {
     "@angular/common": "2.0.0-rc.1",

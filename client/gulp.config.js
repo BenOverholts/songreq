@@ -11,6 +11,11 @@ module.exports = function () {
     var testHelper = test + 'test-helpers/';
     var e2e = test + 'e2e/';
     var tmpE2E = tmpTest + 'e2e/';
+    var envPath = 'app/env.ts';
+    var envConfig = {
+      devUrl: 'http://localhost:8080/api/',
+      prodUrl: 'http://songreq.me/api/'
+    }
     var assets = src + 'assets/';
     var assetsPath = {
         styles: assets + 'styles/',
@@ -103,7 +108,9 @@ module.exports = function () {
         tsFiles: tsFiles,
         tsTestFiles: tsTestFiles,
         browserSync: browserSync,
-        systemJs: systemJs
+        systemJs: systemJs,
+        envPath: envPath,
+        envConfig: envConfig
     };
 
     return config;

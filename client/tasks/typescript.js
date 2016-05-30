@@ -2,7 +2,12 @@ var gulp = require('gulp');
 var config = require('../gulp.config')();
 var ts = require('gulp-typescript');
 var tslint = require('gulp-tslint');
+var gulpif = require('gulp-if');
+var replace = require('gulp-replace');
 var sourcemaps = require('gulp-sourcemaps');
+var argv = require('yargs')
+            .alias('p', 'prod')
+            .argv;
 
 /* Initialize TS Project */
 var typingFiles = [
@@ -76,6 +81,10 @@ function compileTs(files, watchMode) {
             summarizeFailureOutput: true,
             emitError: !watchMode
         })) */
+        .pipe(gulpif(config.envPath, gulpif(argv.prod,
+          replace('API_URL', config.envConfig.prodUrl),
+          replace('API_URL', config.envConfig.devUrl)
+        )))
         .pipe(sourcemaps.init())
         .pipe(ts(tsProject))
         .on('error', function () {
