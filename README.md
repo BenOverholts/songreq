@@ -27,11 +27,19 @@ npm install -g gulp
 
 ## Usage
 
+### Client
+
 * `gulp` or `gulp serve-dev`: run development build and serve in watch mode
 * `gulp build`: run production build with bundling, min/uglify, etc.
 * `gulp serve-build`: run production build and serve in watch mode
 
 Use the `-p` flag to build with production API endpoint injected, otherwise the default is `localhost:8080`.
+
+### Server
+
+* `node server dev`: run in development mode
+* `node server dev-build`: run in development mode (against a bundled build)
+* `node server prod`: run in production mode
 
 ## Components
 Coming Soon
