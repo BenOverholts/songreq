@@ -7,5 +7,5 @@ export var APP_ROUTES: any[] = [
     { path: '/', name: 'Welcome', component: WelcomeComponent },
     { path: '/login', name: 'Login', component: LoginComponent },
     { path: '/dashboard', name: 'Dashboard', component: DashboardComponent },
-    { path: '/party/:uid', name: 'Party', component: PartyComponent }
+    { path: '/party/:pid', name: 'Party', component: PartyComponent }
 ];

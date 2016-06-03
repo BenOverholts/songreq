@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { HTTP_PROVIDERS } from '@angular/http';
-import { Router } from '@angular/router';
+import { Router, RouteSegment, ROUTER_DIRECTIVES } from '@angular/router';
 import { SpotifyService } from '../services/spotify.service';
 import { PartyService } from '../services/party.service';
 import { Song } from '../song';
@@ -9,7 +9,8 @@ import { Song } from '../song';
     selector: 'party',
     inputs: ['uid'],
     templateUrl: 'app/party/party.component.html',
-    providers: [ HTTP_PROVIDERS, PartyService, SpotifyService ]
+    providers: [ HTTP_PROVIDERS, PartyService, SpotifyService ],
+    directives: [ROUTER_DIRECTIVES]
 })
 export class PartyComponent {
     results: Song[] = [];
@@ -53,5 +54,9 @@ export class PartyComponent {
             this.results.push(result);
         }
         //console.log(this.results);
+    }
+
+    routerOnActivate(curr: RouteSegment) {
+      this._partyService.setPid(curr.getParam('pid'));
     }
 }

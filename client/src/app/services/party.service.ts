@@ -9,6 +9,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class PartyService {
     uid: string;
+    pid: string; // uid of the party host (if guest)
     offset: number; // client/server time offset
 
     private _apiUrl = ENVIRONMENT.apiUrl;
@@ -51,11 +52,10 @@ export class PartyService {
     }
 
     requestSong(song: Song) {
-        return this.http.get(this._apiUrl + "request?uid=" + this.uid +
+        return this.http.get(this._apiUrl + "request?uid=" + this.pid +
             "&uri=" + song.uri +
             "&song_name=" + song.name +
             "&artist=" + song.artist);
-
     }
 
     approve(song: Song) {
@@ -68,6 +68,14 @@ export class PartyService {
 
     getUid() {
         return this.uid;
+    }
+
+    setPid(pid: string) {
+        this.pid = pid;
+    }
+
+    getPid() {
+        return this.pid;
     }
 
     calcTimeOffset() {
