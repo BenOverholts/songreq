@@ -1,25 +1,10 @@
-@mixin font-face($name, $path, $exts: eot woff2 woff ttf svg) {
-    $src: null;
-    $path: '../fonts/' + $path;
-
-    $extmods: (
-        eot: "?",
-        svg: "#"
-    );
-
-    $formats: (
-        otf: "opentype",
-        ttf: "truetype"
-    );
-
-    @each $ext in $exts {
-        $extmod: if(map-has-key($extmods, $ext), $ext + map-get($extmods, $ext), $ext);
-        $format: if(map-has-key($formats, $ext), map-get($formats, $ext), $ext);
-        $src: append($src, url(quote($path + "." + $extmod)) format(quote($format)), comma);
-    }
-
-    @font-face {
-        font-family: quote($name);
-        src: $src;
-    }
+@mixin font-face($font-family, $file-path, $font-weight, $font-style) {
+  @font-face {
+    font-family: $font-family;
+      src: url('#{$file-path}.woff2') format('woff2'),
+           url('#{$file-path}.woff') format('woff'),
+           url('#{$file-path}.ttf') format('truetype');
+    font-weight: $font-weight;
+    font-style: $font-style;
+  }
 }
