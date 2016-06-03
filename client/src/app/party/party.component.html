@@ -7,14 +7,15 @@
                 <button type="submit" class="btn btn-success" (click)="search()">Search</button>
             </span>
         </div>
-    </div> 
+    </div>
 </form>
 <div class="confirmation text-center">
     <h4>{{confMessage}}</h4>
 </div>
 <div class="container">
     <div *ngFor="let song of results" class="row">
-        <div class="song-select" style="background-image: url({{song.artUrl}});" (click)="addSuggestion(song)">
+        <!-- TODO: style="background-image: url({{song.artUrl}});" -->
+        <div class="song-select" (click)="addSuggestion(song)">
             <div class="shader">
                 <div class="request">
                     <strong>{{song.name}}</strong>
