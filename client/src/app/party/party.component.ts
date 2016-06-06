@@ -36,6 +36,7 @@ export class PartyComponent {
         this._partyService.requestSong(song).subscribe(res => {
             console.log("Adding Suggestion: " + song.name);
             this.results = [];
+            this.query = "";
             this.confMessage = "Request Submitted";
         });
     }
