@@ -1,23 +1,30 @@
-<div class="intro">
+<div class="row">
+  <div class="col-sm-12 intro">
     <h3>Welcome</h3>
     <p>Songreq lets you play the music people want to hear, while still keeping you in control of the turntables. If you're hosting a party, just log in to Spotify to let people start suggesting songs.</p>
+  </div>
 </div>
 <div class="row">
-    <div class="col-sm-12 text-center">
-        <button class="btn btn-success width-90" (click)="gotoLogin()">Hosting? Log In</button>
-    </div>
+  <div class="col-sm-12 text-center">
+    <button class="btn btn-success hosting-button" (click)="gotoLogin()">Hosting? Log In</button>
+  </div>
 </div>
 <div class="row">
-    <div class="col-sm-12 top-margin-40 intro">
-        <p>Going to a party? Tell the host to share their party playlist! If not, you can always join by the party ID.</p>
-    </div>
-    <div class="col-sm-12 text-center top-margin-20">
-        <form class="join-form">
-            <div class="form-group">
-                <input type="text" class="form-control width-90" [(ngModel)]="joinUid" placeholder="Enter Party ID..."/>
-            </div>
-
-            <button class="btn btn-secondary" (click)="gotoParty()">Join</button>
-        </form>
-    </div>
+  <div class="col-sm-12 top-margin-40 intro">
+    <p>Going to a party? Tell the host to share their party playlist! If not, you can always join by the party ID.</p>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-12 top-margin-20">
+    <form class="join-form">
+      <div class="form-group">
+        <div class="input-group">
+          <input type="text" class="form-control" [(ngModel)]="joinUid" placeholder="Enter Party ID..."/>
+          <span class="input-group-btn">
+            <button type="submit" class="btn btn-secondary" (click)="gotoParty()">Join</button>
+          </span>
+        </div>
+      </div>
+    </form>
+  </div>
 </div>
