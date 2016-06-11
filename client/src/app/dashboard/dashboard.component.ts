@@ -3,10 +3,12 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { PartyService } from '../services/party.service';
 import { Song } from '../song';
+import { ClipboardDirective } from 'angular2-clipboard';
 
 @Component({
     selector: 'dashboard',
     templateUrl: 'app/dashboard/dashboard.component.html',
+    directives: [ClipboardDirective]
 })
 export class DashboardComponent implements OnInit {
     requests: Song[];

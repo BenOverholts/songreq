@@ -20,9 +20,9 @@
         <h3>Share With Attendees</h3>
     </div>
     <div class="input-group">
-        <input id="link" type="text" class="form-control" value="{{shareUrl}}">
+        <input class="form-control" type="text" value="{{shareUrl}}">
         <span class="input-group-btn">
-            <button id="copy-button" class="btn btn-secondary" data-clipboard-target="#link" type="button">Copy!</button>
+            <button class="btn btn-secondary" type="button" ngIIclipboard [cbContent]="shareUrl">Copy!</button>
         </span>
     </div>
 </div>

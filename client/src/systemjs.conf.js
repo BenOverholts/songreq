@@ -20,6 +20,8 @@
         'rxjs': 'n:rxjs',
         '@angular': 'n:@angular',
         'angular2-cookie': 'n:angular2-cookie',
+        'angular2-clipboard': 'n:angular2-clipboard',
+        'clipboard': 'n:clipboard/dist',
         'lodash': 'n:lodash'
     };
 
@@ -37,9 +39,17 @@
         'rxjs': {
             defaultExtension: 'js'
         },
-        'angular2-cookie': { 
-            main: 'core.js',  
-            defaultExtension: 'js' 
+        'angular2-cookie': {
+            main: 'core.js',
+            defaultExtension: 'js'
+        },
+        'angular2-clipboard': {
+            main: 'index.js',
+            defaultExtension: 'js'
+        },
+        'clipboard': {
+            main: 'clipboard.js',
+            defaultExtension: 'js'
         }
     };
 
