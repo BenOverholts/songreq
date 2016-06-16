@@ -1,4 +1,12 @@
 $font-stack: 'Raleway';
+
 $colors: (
-    primary: #222
+    primary: #fff,
+    primary-accent: #ccc,
+    secondary: #C069C2,
+    secondary-accent: #904F92,
+    subtle: #888
 );
+
+$footer-height-desktop: 50px;
+$footer-height-mobile: 30px;

@@ -11,25 +11,92 @@
   color: color(primary);
 }
 
-.intro {
-  font-size: 1.3em;
-  padding: 20px 20px;
+.page-intro {
+  margin-top: 10vh;
+
+  @media (max-width: 750px) {
+    margin-top: 20px;
+  }
+}
+
+.welcome-component {
+  margin-top: 5vh;
+
+  @media (max-width: 750px) {
+    margin-top: 0px;
+  }
+
+  p {
+    font-size: 1.3em;
+    padding: 0px 15px;
+  }
+
+  h3 {
+    padding: 0px 15px;
+  }
+}
+
+.page-wrap {
+  min-height: 100%;
+  /* equal to footer height */
+  margin-bottom: -$footer-height-desktop;
+
+  @media (max-width: 750px) {
+    margin-bottom: -$footer-height-mobile;
+  }
+}
+.page-wrap:after {
+  content: "";
+  display: block;
+}
+.page-footer, .page-wrap:after {
+  height: $footer-height-desktop;
+
+  @media (max-width: 750px) {
+    height: $footer-height-mobile;
+  }
+}
+.page-footer {
+  color: color(subtle);
+
+  a {
+    text-decoration: none;
+
+    color: color(secondary-accent);
+
+    &:hover, &:active {
+      color: darken(color(secondary-accent), 10%);
+    }
+  }
 }
 
 .hosting-button {
   width: 100%;
   max-width: 300px;
+  background-color: color(secondary);
+  border: 2px solid color(secondary);
+  border-radius: 6px;
+  font-size: 1.3em;
+
+  &:hover, &:active {
+    background-color: color(secondary-accent);
+    border: 2px solid color(secondary-accent);
+    color: color(primary);
+  }
 }
 
-.join-form {
+.join-button {
   width: 100%;
   max-width: 300px;
-  margin: 0px auto;
-}
+  background: transparent;
+  border: 2px solid color(primary);
+  border-radius: 6px;
+  font-size: 1.3em;
 
-.form-control {
-  display: block;
-  margin: 0 auto;
+  &:hover, &:active {
+    background-color: rgba(255, 255, 255, 0.3);
+    color: color(primary);
+  }
 }
 
 .top-margin-20 {
@@ -75,11 +142,17 @@
   margin-bottom: 20px;
 }
 
-.logo {
-  margin-top: 30px;
-  margin-bottom: 10px;
-}
-
 .body-container {
   max-width: 735px;
+}
+
+body {
+  background-image: url('../images/bg-desktop.jpg');
+  background-position: center;
+}
+
+@media (max-width: 750px) {
+  body {
+    background-image: url('../images/bg-mobile.jpg');
+  }
 }
