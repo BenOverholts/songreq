@@ -40,6 +40,11 @@ export class PartyService {
             .map(response => response.json());
     }
 
+    partyExists() {
+        return this.http.get(this._apiUrl + 'status?pid=' + this.pid)
+            .map(response => response.json());
+    }
+
     // create new party and playlist
     create() {
         return this.http.get(this._apiUrl + "create?" +

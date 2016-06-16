@@ -1,27 +1,53 @@
-<h3>Request a Song</h3>
-<form>
+<div *ngIf="partySelected">
+  <h3>Request a Song</h3>
+  <form>
     <div class="form-group">
-        <div class="input-group">
-            <input type="text" class="form-control" [(ngModel)]="query" placeholder="Search for a song..."/>
-            <span class="input-group-btn">
-                <button type="submit" class="btn btn-success" (click)="search()">Search</button>
-            </span>
-        </div>
+      <div class="input-group">
+        <input type="text" class="form-control" [(ngModel)]="query" placeholder="Search for a song..."/>
+        <span class="input-group-btn">
+          <button type="submit" class="btn btn-search-join" (click)="search()">Search</button>
+        </span>
+      </div>
     </div>
-</form>
-<div class="confirmation text-center">
+  </form>
+  <div class="confirmation text-center">
     <h4>{{confMessage}}</h4>
-</div>
-<div class="container">
+  </div>
+  <div class="results">
     <div *ngFor="let song of results" class="row">
-        <!-- TODO: style="background-image: url({{song.artUrl}});" -->
-        <div class="song-select" (click)="addSuggestion(song)">
-            <div class="shader">
-                <div class="request">
-                    <strong>{{song.name}}</strong>
-                    {{song.artist}}
-                </div>
-            </div>
-        </div>
+      <div class="col-sm-12">
+        <button type="button" class="btn btn-secondary song-button" (click)="addSuggestion(song)">
+          <span class="song-name">{{song.name}}</span>
+          <span class="song-artist">{{song.artist}}</span>
+        </button>
+      </div>
     </div>
+  </div>
+</div>
+
+<div *ngIf="!partySelected">
+  <div class="row">
+    <div class="col-sm-12">
+      <h3>Join a Party</h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <form>
+        <div class="form-group">
+          <div class="input-group">
+            <input type="text" class="form-control" [(ngModel)]="partySearchId" placeholder="Enter Party ID..."/>
+            <span class="input-group-btn">
+                <button type="submit" class="btn btn-search-join" (click)="attemptJoin()">Search</button>
+            </span>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      {{helpMessage}}
+    </div>
+  </div>
 </div>

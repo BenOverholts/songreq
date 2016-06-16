@@ -1,28 +1,46 @@
-<div class="text-center">
+<div class="row">
+  <div class="col-sm-12 text-center">
     <h3>Manage Song Requests</h3>
+  </div>
 </div>
-<button class="btn btn-default refresh" (click)="refreshRequests()">Refresh</button>
+<div class="row">
+  <div class="col-sm-12 text-center bottom-margin-20">
+    <button class="btn btn-secondary refresh" (click)="refreshRequests()">Refresh</button>
+  </div>
+</div>
 <div *ngFor="let song of requests" class="row">
-    <div class="song">
-        <div class="col-xs-8">
-            <strong>{{song.name}}</strong> {{song.artist}}
+  <div class="col-xs-12 song-request">
+        <div class="song-request-details pull-left">
+          <span class="song-name">{{song.name}}</span>
+          <span class="song-artist">{{song.artist}}</span>
         </div>
-        <div class="col-xs-2">
-            <div class="btn btn-danger" style="display: inline;" (click)="dismissSong(song)">NO</div>
+        <div class="song-request-buttons pull-right">
+          <button type="button" class="btn btn-secondary" (click)="dismissSong(song)">NO</button>
+          <button type="button" class="btn btn-primary" (click)="approveSong(song)">YES</button>
         </div>
-        <div class="col-xs-2">
-            <div class="btn btn-success" style="display: inline;" (click)="approveSong(song)">YES</div>
-        </div>
-    </div>
+      <!--
+      <div class="col-sm-2">
+        <button type="button" class="btn btn-secondary" (click)="dismissSong(song)">NO</button>
+      </div>
+      <div class="col-sm-2">
+        <button type="button" class="btn btn-primary" (click)="approveSong(song)">YES</button>
+      </div> -->
+  </div>
 </div>
-<div class="container">
+<div class="row">
+  <div class="col-sm-12">
     <div class="text-center pad-top">
-        <h3>Share With Attendees</h3>
+      <h3>Share With Attendees</h3>
     </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-12">
     <div class="input-group">
-        <input class="form-control" type="text" value="{{shareUrl}}">
-        <span class="input-group-btn">
-            <button class="btn btn-secondary" type="button" ngIIclipboard [cbContent]="shareUrl">Copy!</button>
-        </span>
+      <input class="form-control" type="text" value="{{shareUrl}}">
+      <span class="input-group-btn">
+        <button class="btn btn-search-join" type="button" ngIIclipboard [cbContent]="shareUrl">Copy!</button>
+      </span>
     </div>
+  </div>
 </div>

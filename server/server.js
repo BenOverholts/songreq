@@ -220,7 +220,8 @@ app.get('/api/destroy', function(req, res) {
 // Check if a party exists, and TODO return details about it
 app.get('/api/status', function(req, res) {
   console.log('[/status] Begin handling');
-  var uid = req.cookies.uid; // TODO Enforce authenticity of this cookie
+  var uid = req.param('pid') ? req.param('pid') : req.cookies.uid;
+  // TODO Enforce authenticity if cookie is used (host)
 
   // Fetch party from storage
   Party.findOne({ uid: uid }, function(err, party) {

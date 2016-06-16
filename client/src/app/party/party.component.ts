@@ -16,12 +16,18 @@ export class PartyComponent {
     results: Song[] = [];
     query: string;
     confMessage: string;
+    helpMessage: string;
+    partySelected: boolean = false;
+    partySearchId: string;
 
     constructor(
         private _partyService: PartyService,
-        private _spotifyService: SpotifyService) {
+        private _spotifyService: SpotifyService,
+        private _router: Router) {
 
-        this.confMessage = ""
+        this.confMessage = "";
+        this.helpMessage = "";
+        this.partySelected = true;
     }
 
     search() {
@@ -57,7 +63,30 @@ export class PartyComponent {
         //console.log(this.results);
     }
 
+    attemptJoin() {
+      var navUrl = '/party/' + this.partySearchId;
+      this._router.navigate([navUrl]);
+      return false; // https://github.com/angular/angular/issues/6154
+    }
+
     routerOnActivate(curr: RouteSegment) {
-      this._partyService.setPid(curr.getParam('pid'));
+      if (curr.getParam('pid')) {
+        this._partyService.setPid(curr.getParam('pid'));
+        this._partyService.partyExists().subscribe( res =>
+          { if (res.party) {
+              this.partySelected = true;
+              this.helpMessage = "";
+            } else {
+              this.partySelected = false;
+              this.helpMessage = "Oops, we couldn't find party "
+                + this._partyService.getPid()
+                + "! Make sure you got the right link from the host, "
+                + "or you entered the right party ID.";
+            }
+        });
+      } else {
+        this.partySelected = false;
+        this.helpMessage = "";
+      }
     }
 }
