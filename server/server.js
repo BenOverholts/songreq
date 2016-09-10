@@ -10,6 +10,7 @@ var request = require('request');
 var mongoose = require('mongoose');
 var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
+var moment = require('moment');
 var SpotifyWebApi = require('spotify-web-api-node');
 var argv = require('yargs')
   .usage('Usage: $0 <environment>')
@@ -168,8 +169,8 @@ app.get('/api/create', function(req, res) {
     } else {
 
       // Create playlist
-      spotifyApi.createPlaylist(uid, 'Partify (' + datetime + ')',
-        { 'public': true })
+      spotifyApi.createPlaylist(uid,
+        'Songreq (' + moment().format("MMM. Do") + ')', { 'public': true })
       .then(function(data) {
         console.log('[/create] Successfully created playlist ' + data.body.id);
 
