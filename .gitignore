@@ -1,17 +1,16 @@
 # libraries
 */node_modules
-*/bower_components
 
-# compiled files
-*.css
-client/build
-client/src/tmp
-
-# Test Output
-client/report
-
-# typings
-client/typings
+# IDEs and editors
+*/.idea
+*.iml
+*.project
+*.classpath
+*.c9/
+*.launch
+*.settings/
+*.sublime-workspace
+.vscode/*
 
 # OSX
 *.DS_Store
