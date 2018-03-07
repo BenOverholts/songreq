@@ -7,7 +7,7 @@ class Header extends Component {
     return (
       <div className="row">
         <div className="col-12 text-center page-intro">
-          <img src={logo} width="200" height="79" className="App-logo" alt="Songreq" />
+          <img src={logo} width="200" height="79" className="logo" alt="Songreq" />
         </div>
       </div>
     );

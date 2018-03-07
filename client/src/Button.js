@@ -9,7 +9,7 @@ class Button extends Component {
 
   handleClick(e) {
     e.preventDefault();
-    console.log('Log In was clicked.');
+    console.log(`Button "${this.props.content}" was clicked.`);
     // TODO redirect
   }
 
