@@ -1,0 +1,26 @@
+.Welcome {
+  margin-top: 5vh;
+  @media (max-width: 750px) {
+    margin-top: 0px;
+  }
+  p {
+    padding: 0px 15px;
+  }
+  h3 {
+    padding: 0px 15px;
+  }
+}
+
+.top-margin {
+  margin-top: 20px;
+}
+
+.hosting-button {
+  width: 100%;
+  max-width: 300px;
+}
+
+.join-button {
+  width: 100%;
+  max-width: 300px;
+}

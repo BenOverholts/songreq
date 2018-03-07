@@ -1,5 +1,8 @@
-# libraries
+# Libraries
 */node_modules
+
+# Compiled Artifacts
+*.css
 
 # IDEs and editors
 */.idea

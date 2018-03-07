@@ -1,0 +1,13 @@
+body {
+  background: url('./images/bg-desktop.jpg') no-repeat 50% 50% fixed;
+  background-position: center;
+  background-size: cover;
+  box-sizing: content-box;
+  @media (max-width: 750px) {
+      background-image: url('./images/bg-mobile.jpg');
+  }
+
+  font-family: 'Raleway', sans-serif;
+  font-size: 1.1em;
+  color: #fff;
+}

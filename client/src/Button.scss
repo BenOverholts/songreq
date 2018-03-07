@@ -1,0 +1,36 @@
+@import "./variables.scss";
+
+.btn {
+  color: color(primary);
+  -moz-transition: none;
+  -webkit-transition: none;
+  -o-transition: color 0 ease-in;
+  transition: none;
+}
+
+.primary {
+  background-color: color(secondary);
+  border: 2px solid color(secondary);
+  border-radius: 6px;
+  &:hover,
+  &:active {
+    background-color: color(secondary-accent);
+    border: 2px solid color(secondary-accent);
+    color: color(primary);
+  }
+  &:focus,
+  &:focus:active {
+    background-color: color(secondary-accent);
+  }
+}
+
+.secondary {
+  background: transparent;
+  border: 2px solid color(primary);
+  border-radius: 6px;
+  &:hover,
+  &:active {
+    background-color: rgba(255, 255, 255, 0.3);
+    color: color(primary);
+  }
+}
