@@ -9,14 +9,14 @@ class Button extends Component {
 
   handleClick(e) {
     e.preventDefault();
-    console.log(`Button "${this.props.content}" was clicked.`);
+    console.log(`Button "${this.props.children}" was clicked.`);
     // TODO redirect
   }
 
   render() {
     return (
-      <button className={`btn ${this.props.kind} ${this.props.className}`} onClick={this.handleClick}>
-        {this.props.content}
+      <button className={`btn ${this.props.kind} ${(this.props.className) ? this.props.className : ''}`} onClick={this.handleClick}>
+        {this.props.children}
       </button>
     );
   }

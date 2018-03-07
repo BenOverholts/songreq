@@ -18,10 +18,10 @@ class Welcome extends Component {
         </div>
         <div className="row">
           <div className="col-md-6 text-center top-margin">
-            <Button kind="primary" content="Hosting? Log In" className="hosting-button" />
+            <Button kind="primary" className="hosting-button">Hosting? Log In</Button>
           </div>
           <div className="col-md-6 text-center top-margin">
-            <Button kind="secondary" content="Join a Party" className="join-button" />
+            <Button kind="secondary" className="join-button">Join a Party</Button>
           </div>
         </div>
       </div>

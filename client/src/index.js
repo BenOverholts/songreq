@@ -5,9 +5,11 @@ import history from './history';
 import './index.css';
 import registerServiceWorker from './registerServiceWorker';
 import Welcome from './Welcome';
+import Dashboard from './Dashboard';
 
 const routes = [
   { path: '/', action: () => <Welcome /> },
+  { path: '/dashboard', action: () => <Dashboard /> },
   { path: '(.*)', action: () => <h1>Not Found</h1> }
 ]
 
