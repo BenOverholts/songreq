@@ -1,7 +1,10 @@
 package me.songreq
 
+import com.fasterxml.jackson.core.JsonProcessingException
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.fasterxml.jackson.module.kotlin.readValue
 import com.google.common.net.MediaType
-import com.squareup.moshi.JsonDataException
 import me.songreq.auth.DefaultAuthProvider
 import me.songreq.dao.*
 import me.songreq.provider.MusicProvider
@@ -21,6 +24,7 @@ val log: Logger = LoggerFactory.getLogger(Server::class.java)
 val songRequestDao: SongRequestDao = InMemorySongRequestDao()
 val partyDao: PartyDao = InMemoryPartyDao()
 val userDao: UserDao = InMemoryUserDao()
+val mapper: ObjectMapper = jacksonObjectMapper()
 
 fun main(args: Array<String>) {
     val provider: MusicProvider = SpotifyMusicProvider(DefaultAuthProvider(partyDao, userDao),
@@ -30,8 +34,8 @@ fun main(args: Array<String>) {
     path("/api/requests") {
         get("/party/:partyId") { req, res ->
             try {
-                songRequestListAdapter.toJson(songRequestDao.findByParty(req.params("partyId")))
-            } catch (e: JsonDataException) {
+                mapper.writeValueAsString(songRequestDao.findByParty(req.params("partyId")))
+            } catch (e: JsonProcessingException) {
                 log.error("Failed to list songs for party {} - ", req.params("partyId"), e)
                 res.status(HttpStatus.INTERNAL_SERVER_ERROR_500)
                 noResponseBody()
@@ -48,8 +52,8 @@ fun main(args: Array<String>) {
 
         post("") { req, res ->
             try {
-                songRequestDao.put(songRequestParamsAdapter.fromJson(req.body()) ?: throw JsonDataException())
-            } catch (e: JsonDataException) {
+                songRequestDao.put(mapper.readValue(req.body()))
+            } catch (e: JsonProcessingException) {
                 log.error("Failed to add song request {} - ", req.body(), e)
                 res.status(HttpStatus.BAD_REQUEST_400)
             } catch (e: IOException) {
@@ -89,7 +93,7 @@ fun main(args: Array<String>) {
     path("/api/party") {
         get("/:id") { req, _ ->
             val party = partyDao.get(req.params("id"))
-            partyAdapter.toJson(party)
+            mapper.writeValueAsString(party)
         }
 
         post("/create") { _, res ->
@@ -101,11 +105,11 @@ fun main(args: Array<String>) {
     path("api/songs") {
         post("/search") { req, res ->
             try {
-                val query = songQueryAdapter.fromJson(req.body()) ?: throw JsonDataException()
+                val query: SearchQuery = mapper.readValue(req.body())
                 val results = provider.search(query)
                 log.info("Search - query: {}, results: {}", query, results)
                 results
-            } catch (e: JsonDataException) {
+            } catch (e: JsonProcessingException) {
                 log.error("Failed to search songs for query {} - ", req.body(), e)
                 res.status(HttpStatus.BAD_REQUEST_400)
                 noResponseBody()
