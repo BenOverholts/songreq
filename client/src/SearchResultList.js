@@ -16,7 +16,7 @@ class SearchResultList extends Component {
     return this.props.results.songs.map((song) => (
       <div key={song.uri} className="row">
         <div className="col-12">
-          <SearchResult result={song} />
+          <SearchResult result={song} {...this.props} />
         </div>
       </div>
     ))

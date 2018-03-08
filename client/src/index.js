@@ -11,7 +11,7 @@ import SongSearch from './SongSearch';
 const routes = [
   { path: '/',          action: () => <Welcome /> },
   { path: '/dashboard', action: () => <Dashboard /> },
-  { path: '/party',     action: () => <SongSearch /> },
+  { path: '/party/:id', action: (context) => <SongSearch partyId={context.params.id}/> },
   { path: '(.*)',       action: () => <h1>Not Found</h1> }
 ]
 

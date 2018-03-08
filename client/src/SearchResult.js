@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Button from './Button';
+import axios from 'axios';
 import './SearchResult.css';
 
 class SearchResult extends Component {
@@ -10,6 +11,22 @@ class SearchResult extends Component {
 
   requestSong() {
     console.log('Requesting ' + this.props.result.name + ' by ' + this.props.result.artist);
+
+    axios.post('/api/requests', {
+        partyId: this.props.partyId,
+        song: {
+          uri: this.props.result.uri,
+          name: this.props.result.name,
+          artist: this.props.result.artist,
+          artUrl: this.props.result.artUrl
+        }
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
   render() {

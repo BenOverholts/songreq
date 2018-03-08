@@ -8,7 +8,7 @@ export default function asPage(PageComponent) {
       return (
         <div className="container body-container">
           <Header />
-          <PageComponent />
+          <PageComponent {...this.props}/>
         </div>
       );
     }

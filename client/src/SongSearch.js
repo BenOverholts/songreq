@@ -7,6 +7,7 @@ import InlineSearchBar from './InlineSearchBar';
 class SongSearch extends Component {
   constructor(props) {
     super(props);
+    console.log(props);
     this.search = this.search.bind(this);
 
     this.state = { query: null, results: null };
@@ -30,7 +31,7 @@ class SongSearch extends Component {
   }
 
   renderResults() {
-    return (this.state.query) ? <SearchResultList results={this.state.results} query={this.state.query}/> : null;
+    return (this.state.query) ? <SearchResultList results={this.state.results} query={this.state.query} {...this.props} /> : null;
   }
 }
 
