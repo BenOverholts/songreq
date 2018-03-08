@@ -5,8 +5,8 @@ class SongRequestList extends Component {
 
   render() {
     return (
-      <div className="list">
-        {(this.props.requests) ? this.renderRequests() : this.renderNoRequestsMessage() }
+      <div className="song-request-list">
+        { (this.props.requests) ? this.renderRequests() : this.renderNoRequestsMessage() }
       </div>
     );
   }

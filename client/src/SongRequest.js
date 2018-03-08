@@ -5,7 +5,6 @@ import './SongRequest.css';
 class SongRequest extends Component {
 
   render() {
-    console.log(this.props);
     return (
       <div className="song-request">
         <div className="song-request-details float-left">

@@ -6,11 +6,13 @@ import './index.css';
 import registerServiceWorker from './registerServiceWorker';
 import Welcome from './Welcome';
 import Dashboard from './Dashboard';
+import SongSearch from './SongSearch';
 
 const routes = [
-  { path: '/', action: () => <Welcome /> },
+  { path: '/',          action: () => <Welcome /> },
   { path: '/dashboard', action: () => <Dashboard /> },
-  { path: '(.*)', action: () => <h1>Not Found</h1> }
+  { path: '/party',     action: () => <SongSearch /> },
+  { path: '(.*)',       action: () => <h1>Not Found</h1> }
 ]
 
 const router = new UniversalRouter(routes)

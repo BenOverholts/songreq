@@ -1,0 +1,11 @@
+@import "./variables.scss";
+
+.btn-search-inline {
+  color: color(primary);
+  background-color: color(secondary);
+  &:hover,
+  &:active {
+      background-color: color(secondary-accent);
+      color: color(primary);
+  }
+}

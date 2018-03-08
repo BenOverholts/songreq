@@ -10,7 +10,8 @@ class Button extends Component {
   handleClick(e) {
     e.preventDefault();
     console.log(`Button "${this.props.children}" was clicked.`);
-    // TODO redirect
+
+    this.props.onClick()
   }
 
   render() {
