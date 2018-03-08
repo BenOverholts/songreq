@@ -3,6 +3,7 @@
 
 # Compiled Artifacts
 *.css
+*/target
 
 # IDEs and editors
 */.idea
