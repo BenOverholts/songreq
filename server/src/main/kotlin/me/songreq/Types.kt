@@ -43,12 +43,9 @@ data class Party(val id: String, override val playlistId: String, override val h
 abstract class AbstractSongRequest {
     abstract val partyId: String
     abstract val song: Song
-    abstract val requester: String
 }
-data class SongRequestParams(override val partyId: String, override val song: Song,
-                       override val requester: String) : AbstractSongRequest()
-data class SongRequest(val id: String, override val partyId: String, override val song: Song,
-                                 override val requester: String) : AbstractSongRequest() {
+data class SongRequestParams(override val partyId: String, override val song: Song) : AbstractSongRequest()
+data class SongRequest(val id: String, override val partyId: String, override val song: Song) : AbstractSongRequest() {
     constructor(id: String, params: SongRequestParams)
-            : this(id, params.partyId, params.song, params.requester)
+            : this(id, params.partyId, params.song)
 }
