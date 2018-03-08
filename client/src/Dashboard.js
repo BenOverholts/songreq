@@ -1,24 +1,19 @@
 import React, { Component } from 'react';
 import './Dashboard.css';
-import Button from './Button';
-import List from './List';
 import asPage from './Page';
+import SongRequestList from './SongRequestList';
 
 class Dashboard extends Component {
+
   render() {
     return (
       <div className="Dashboard">
         <div className="row">
-          <div className="col-sm-12 text-center">
+          <div className="col-sm-12 text-center pad-top">
             <h3>Manage Song Requests</h3>
           </div>
         </div>
-        <div className="row">
-          <div className="col-sm-12 text-center bottom-margin-20">
-            <Button kind="secondary" className="refresh">Refresh</Button>
-          </div>
-        </div>
-        <List/> { /* TODO HOC listOf(Component) and HOC withSubscription(Component, DataSource) */ }
+        <SongRequestList />
         <div className="row">
           <div className="col-sm-12">
             <div className="text-center pad-top">
@@ -26,6 +21,7 @@ class Dashboard extends Component {
             </div>
           </div>
         </div>
+        { /* TODO share link */ }
       </div>
     );
   }
