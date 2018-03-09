@@ -27,7 +27,7 @@ class SongRequestList extends Component {
     return this.state.requests.map((request) => (
       <div key={request.id} className="row">
         <div className="col-12">
-          <SongRequest request={request} />
+          <SongRequest request={request} {...this.props} />
         </div>
       </div>
     ))
